@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier société{% endblock %}
+
+{% block body %}  
+    <div class="container mt-5">
+        <h3>Modifier une société</h3>
+        <form method="post" enctype="multipart/form-data">
+            {{ form_widget(form._token) }}           
+            <div class="mb-3">           
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.siren) }}
+                {{ form_widget(form.siren) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.registrationDate) }}
+                {{ form_widget(form.registrationDate) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.capital) }}
+                {{ form_widget(form.capital) }}
+            </div>  
+            <div 
+                class="address"
+                data-index="{{ form.address|length > 0 ? form.address|last.vars.name + 1 : 0 }}"
+                data-prototype = "{{ form_widget(form.address.vars.prototype)|e('html_attr') }}">  
+                {% for addressField in form.address %}
+                    <div class="mb-3">
+                        {{ form_errors(addressField) }}
+                        {{ form_widget(addressField) }}                        
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="btn btn-primary add_address_link mt-3">+ Adresse</button>          
+            <div class="mt-3 mb-3">        
+            {% include 'components/_buttons.html.twig' with {
+                'url': 'company_list',
+                'label': '<< Retour à la liste'
+            } %}  
+            {{ form_widget(form.save,{'label': 'Modifier', attr:{'class':'btn-right btn btn-success'}}) }} 
+            </div>         
+        </form>   
+    </div>           
+{% endblock %} 

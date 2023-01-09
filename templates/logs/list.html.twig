@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste historiques{% endblock %}
+
+{% block body %}   
+    <div class="container mt-5">
+        <h3>
+            {% include 'components/_buttons.html.twig' with {
+                'url': 'company_list',
+                'label': '<< Retour à la liste'
+            } %} 
+            Liste des historiques
+        </h3>  
+        <table class="table table-bordered">                        
+            <thead class="table-light">           
+                <tr>                    
+                    <th scope="col">Nom entité</th>
+                    <th scope="col">Objet id</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">Contenu</th>                                                                                                                  
+                </tr>
+            </thead>
+            <tbody>       
+                {% for log in logs %}
+                    <tr>                       
+                        <td>{{ log.nameEntity }}</td>
+                        <td>{{ log.createById }}</td>
+                        <td>{{ log.action }}</td>                        
+                        <td>{{ log.contents|json_encode() }}</td>                                                                                                                      
+                    </tr> 
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucun historique</td>                
+                    </tr>  
+                {% endfor %}       
+            </tbody>
+        </table>        
+    </div>
+{% endblock %}

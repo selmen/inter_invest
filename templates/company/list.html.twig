@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste société{% endblock %}
+
+{% block body %} 
+    <div class="container">
+        <div class="row justify-content-md-center">    
+            <div class="col-md-auto">
+                {{ render(controller('App\\Controller\\SearchController::index')) }}
+            </div>    
+        </div>   
+    </div>    
+    <div class="container mt-5">        
+        <h3>
+            {% if page_search is defined %}                
+                {% include 'components/_buttons.html.twig' with {
+                    'url': 'company_list',
+                    'label': '<< Retour à la liste'
+                } %} 
+            {% endif %}
+            Liste des sociétés
+        </h3>  
+        <table class="table table-bordered">                        
+            <thead class="table-light">           
+                <tr>                    
+                    <th scope="col">Nom</th>
+                    <th scope="col">siren</th>
+                    <th scope="col">Date d'immatriculation</th>                
+                    <th scope="col">Capital</th>                    
+                    <th scope="col">Action</th>                                        
+                </tr>
+            </thead>
+            <tbody>       
+                {% for company in companies %}
+                    <tr>                       
+                        <td>{{ company.name }}</td>
+                        <td>{{ company.siren }}</td>
+                        <td>{{ company.registrationDate|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ company.capital }}</td>                                                                      
+                        <td>                        
+                            {% include 'components/_actions.html.twig' with {
+                                'object': company,
+                                'path_edit': 'company_edit',
+                                'path_remove': 'company_delete',
+                                'path_address': 'company_list_address',
+                                'path_logs': 'logs_list'                                                                                           
+                            } %}                                                                                 
+                        </td>                        
+                    </tr> 
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucune Société</td>                
+                    </tr>  
+                {% endfor %}       
+            </tbody>
+        </table>        
+    </div>
+{% endblock %}

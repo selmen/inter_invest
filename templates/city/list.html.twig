@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste ville{% endblock %}
+
+{% block body %}   
+    <div class="container mt-5">
+        <h3>Liste des Villes</h3>  
+        <table class="table table-bordered">                        
+            <thead class="table-light">           
+                <tr>                    
+                    <th scope="col">Nom</th>                    
+                    <th scope="col">Action</th>                                        
+                </tr>
+            </thead>
+            <tbody>       
+                {% for city in cities %}
+                    <tr>                       
+                        <td>{{ city.name }}</td>                                                                    
+                        <td>                        
+                            {% include 'components/_actions.html.twig' with {
+                                'object': city,
+                                'path_edit': 'city_edit',
+                                'path_remove': 'city_delete'                                                                                             
+                            } %}                                                                                 
+                        </td>                        
+                    </tr> 
+                {% else %}
+                    <tr>
+                        <td colspan="2" class="text-center">Aucune Ville</td>                
+                    </tr>  
+                {% endfor %}       
+            </tbody>
+        </table>        
+    </div>
+{% endblock %}

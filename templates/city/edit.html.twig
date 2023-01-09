@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier ville{% endblock %}
+
+{% block body %}  
+    <div class="container mt-5">
+        <h3>Modifier une ville</h3>
+        <form method="post" enctype="multipart/form-data">
+            {{ form_widget(form._token) }}           
+            <div class="mb-3">           
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>           
+            <div class="mb-3">        
+            {% include 'components/_buttons.html.twig' with {
+                'url': 'city_list',
+                'label': '<< Retour à la liste'
+            } %}  
+            {{ form_widget(form.save,{'label': 'Modifier', attr:{'class':'btn-right btn btn-success'}}) }} 
+            </div>         
+        </form>   
+    </div>           
+{% endblock %} 

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Adresse{% endblock %}
+
+{% block body %}   
+    <div class="container mt-5">
+        <h3>
+            {% if company is defined %}
+                <a href="{{ path ('company_list') }}">
+                    {{ company.name }}
+                </a>
+                /
+            {% endif %}
+            Liste des Adresses
+        </h3>  
+        <table class="table table-bordered">                        
+            <thead class="table-light">           
+                <tr>                    
+                    <th scope="col">Numéro</th>
+                    <th scope="col">Type de voie</th>
+                    <th scope="col">Nom de voie</th>                
+                    <th scope="col">Code Postal</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Action</th>                                        
+                </tr>
+            </thead>
+            <tbody>       
+                {% for address in list_address %}
+                    <tr>                       
+                        <td>{{ address.number }}</td>
+                        <td>{{ address.channelType }}</td>
+                        <td>{{ address.channelName }}</td>
+                        <td>{{ address.postalCode }}</td>
+                        <td>{{ address.city.name ?? '' }}</td>                                                
+                        <td>                        
+                            {% include 'components/_actions.html.twig' with {
+                                'object': address,
+                                'path_edit': 'address_edit',
+                                'path_remove': 'address_delete'                                                                                             
+                            } %}                                                                                 
+                        </td>                        
+                    </tr> 
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Aucune Adresse</td>                
+                    </tr>  
+                {% endfor %}       
+            </tbody>
+        </table>        
+    </div>
+{% endblock %}

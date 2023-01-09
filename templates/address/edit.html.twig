@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier adresse{% endblock %}
+
+{% block body %}  
+    <div class="container mt-5">
+        <h3>Modifier une adresse</h3>
+        <form method="post" enctype="multipart/form-data">
+            {{ form_widget(form._token) }}           
+            <div class="mb-3">           
+                {{ form_label(form.number) }}
+                {{ form_widget(form.number) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.channelType) }}
+                {{ form_widget(form.channelType) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.channelName) }}
+                {{ form_widget(form.channelName) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.postalCode) }}
+                {{ form_widget(form.postalCode) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.city) }}
+                {{ form_widget(form.city) }}
+            </div>
+            <div class="mb-3">        
+            {% include 'components/_buttons.html.twig' with {
+                'url': 'address_list',
+                'label': '<< Retour à la liste'
+            } %}  
+            {{ form_widget(form.save,{'label': 'Modifier', attr:{'class':'btn-right btn btn-success'}}) }} 
+            </div>         
+        </form>   
+    </div>           
+{% endblock %} 

@@ -1,0 +1,9 @@
+  <div class="container mt-5">    
+    <form action ="{{ path ('search_index') }}" method="post" enctype="multipart/form-data">
+        {{ form_widget(form._token) }}           
+        <div class="mb-3">            
+            {{ form_widget(form.registrationDate) }}                             
+            {{ form_widget(form.save,{'label': 'Rechercher', attr:{'class':'btn-right btn btn-success'}}) }}     
+        </div>                            
+    </form>   
+</div>
